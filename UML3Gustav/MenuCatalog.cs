@@ -13,7 +13,11 @@ namespace UML3Gustav
         public MenuCatalog() { _items = new List<IMenuItem>(); }
         public int Count { get { return _items.Count; } }
 
-        public void Add(IMenuItem item) {  _items.Add(item); }
+        public void Add(IMenuItem item) {
+            if (Search(item.Number) != null)
+                throw new MenuItemNumberExist();
+            _items.Add(item); 
+        }
         public void Delete(int num) {  _items.Remove(Search(num)); }
         public IMenuItem Search(int num) {  return _items.Find(x=>x.Number == num); }
         public void Update(int num, IMenuItem item)
