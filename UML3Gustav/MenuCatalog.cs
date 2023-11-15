@@ -15,13 +15,26 @@ namespace UML3Gustav
 
         public void Add(IMenuItem item) {
             if (Search(item.Number) != null)
-                throw new MenuItemNumberExist();
+                throw new MenuItemNumberExist("The number assigned to the MeniItem is already in use");
             _items.Add(item); 
+        }
+        public void AddRange(List<IMenuItem> list)
+        {
+            foreach(IMenuItem item in list)
+            {
+                if (Search(item.Number) != null)
+                    throw new MenuItemNumberExist("The number assigned to the MeniItem is already in use");
+            }
+            _items.AddRange(list);
         }
         public void Delete(int num) {  _items.Remove(Search(num)); }
         public IMenuItem Search(int num) {  return _items.Find(x=>x.Number == num); }
         public void Update(int num, IMenuItem item)
         {
+            if  (Search(item.Number) != null && item.Number != num)
+            {
+                throw new MenuItemNumberExist("The number assigned to the MeniItem is already in use");
+            }
             _items.Insert(_items.IndexOf(Search(num)), item); 
         }
         
@@ -30,7 +43,7 @@ namespace UML3Gustav
             foreach (var item in _items)
             {
                 if(item.Type == ItemType.Pizza)
-                    Console.WriteLine(item.PrintInfo);
+                    Console.WriteLine(item.PrintInfo());
             }
         }
         public void PrintBeveragesMenu()
@@ -38,7 +51,7 @@ namespace UML3Gustav
             foreach (var item in _items)
             {
                 if (item.Type == ItemType.Beverage)
-                    Console.WriteLine(item.PrintInfo);
+                    Console.WriteLine(item.PrintInfo());
             }
         }
 
@@ -47,7 +60,7 @@ namespace UML3Gustav
             foreach (var item in _items)
             {
                 if (item.Type == ItemType.Topping)
-                    Console.WriteLine(item.PrintInfo);
+                    Console.WriteLine(item.PrintInfo());
             }
         }
 
@@ -56,7 +69,7 @@ namespace UML3Gustav
             foreach (var item in _items)
             {
                 if (item.Type == type)
-                    Console.WriteLine(item.PrintInfo);
+                    Console.WriteLine(item.PrintInfo());
             }
         }
 
@@ -81,14 +94,17 @@ namespace UML3Gustav
             return items;
         }
 
-        public IMenuItem FindMostExpensiveMenuItem()
+        public IMenuItem MostExpensiveMenuItem()
         {
             IMenuItem mostExpensive = null;
-            int comparer = 0;
+            double comparer = 0;
             foreach(var item in _items)
             {
                 if (item.Price > comparer)
+                {
                     mostExpensive = item;
+                    comparer = mostExpensive.Price;
+                }
             }
             return mostExpensive;
         }

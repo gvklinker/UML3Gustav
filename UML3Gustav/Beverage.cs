@@ -19,7 +19,7 @@ namespace UML3Gustav
 
         public override string PrintInfo()
         {
-            return base.ToString()+ $" Acoholic: {IsAlcoholic} \n {Size} cl";
+            return base.ToString()+ $" {(IsAlcoholic ? "Alcoholic": "Non-Alcoholic")} \n {Size} cl";
         }
     }
 }

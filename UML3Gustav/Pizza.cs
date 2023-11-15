@@ -18,7 +18,7 @@ namespace UML3Gustav
 
         public override string PrintInfo()
         {
-            return base.ToString()+ $" Deep pan: {IsDeep}";
+            return base.ToString()+ $"{(IsDeep? "Deep pan":"Alm")}";
         }
     }
 

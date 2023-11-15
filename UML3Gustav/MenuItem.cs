@@ -15,6 +15,8 @@ namespace UML3Gustav
         public ItemType Type { get; set; }
         public bool IsOrganic { get; set; }
         public bool IsVegan {  get; set; }
+        protected string isVegan { get { return IsVegan ? "Vegan" : "Non-Vegan"; } }
+        protected string isOrganic { get { return IsOrganic ? "Organic" : "Non-Organic"; } }
         public MenuItem(int num, string name, string desc, double price, ItemType type, bool organic, bool vegan)
         {
             Number = num;
@@ -33,7 +35,7 @@ namespace UML3Gustav
 
         public override string ToString()
         {
-            return $"Number {Number} Name {Name} {Description} {Price}\n {Type} Organic: {IsOrganic} Vegan: {IsVegan} ";
+            return $"Number {Number} Name {Name} {Description} \t {Price} kr\n {Type} {(IsOrganic ? "Organic" : "Non-Organic")} {(IsVegan ? "Vegan" : "Non-Vegan")} ";
         }
 
     }

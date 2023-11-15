@@ -8,6 +8,6 @@ namespace UML3Gustav
 {
     public class MenuItemNumberExist : Exception
     {
-        public MenuItemNumberExist() { }
+        public MenuItemNumberExist(string mes) : base(mes) { }
     }
 }
